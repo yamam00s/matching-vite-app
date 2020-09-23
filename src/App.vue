@@ -1,23 +1,26 @@
 <template>
   <div id="app">
-    <div class="contents">
+    <div class="container">
       <div class="menu">
         <p>メニュー</p>
       </div>
-      <Home />
+      <div class="contens">
+        <Home />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import Home from './pages/Home.vue'
 
-export default {
+export default defineComponent({
   name: 'App',
   components: {
     Home,
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -26,11 +29,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #333;
   margin: 0 30px;
 }
 
-.contents {
+.container {
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -38,9 +41,18 @@ export default {
   /* justify-content: center; */
 }
 
+.contens,
+.menu {
+  padding-top: 30px;
+}
+
+.contens {
+  padding-left: 30px;
+}
+
 .menu {
   width: 30%;
-  border-right: 1px solid #000;
+  border-right: 1px solid #333;
   padding-top: 30px;
 }
 </style>
