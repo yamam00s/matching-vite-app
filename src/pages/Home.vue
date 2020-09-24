@@ -1,9 +1,11 @@
 <template>
-  <ul v-if="!isLoading">
-    <li v-for="preson in persons" :key="preson.id">
-      {{ preson.name }}
-    </li>
-  </ul>
+  <Suspense>
+    <ul>
+      <li v-for="preson in persons" :key="preson.id">
+        {{ preson.name }}
+      </li>
+    </ul>
+  </Suspense>
 </template>
 
 <script lang="ts">
@@ -14,12 +16,10 @@ import { Person } from '../services/models/person'
 export default defineComponent({
   name: 'Home',
   setup() {
-    const isLoading = ref<boolean>(false)
     const isMale = ref<boolean>(true)
     const persons = ref<Person[]>([])
 
     const getPersons = async () => {
-      isLoading.value = true
       let endPoint: string
       if (isMale.value) {
         endPoint = '/src/static/json/male.json'
@@ -28,7 +28,6 @@ export default defineComponent({
       }
       const res = await axios.get<Person[]>(endPoint)
       persons.value = res.data
-      isLoading.value = false
     }
 
     onMounted(getPersons)
