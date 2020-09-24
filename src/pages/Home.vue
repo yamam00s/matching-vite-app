@@ -1,13 +1,14 @@
 <template>
-  <ul>
-    <li v-for="preson in displayPersons" :key="preson.id">
+  <ul v-if="!isLoading">
+    <li v-for="preson in persons" :key="preson.id">
       {{ preson.name }}
     </li>
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
+import axios from 'axios'
 import { Person } from '../services/models/person'
 import maleList from '../static/json/male.json'
 import femaleList from '../static/json/female.json'
@@ -15,16 +16,27 @@ import femaleList from '../static/json/female.json'
 export default defineComponent({
   name: 'Home',
   setup() {
+    const isLoading = ref<boolean>(false)
     const isMale = ref<boolean>(true)
-    const males = reactive<Person[]>(maleList)
-    const females = reactive<Person[]>(femaleList)
+    const persons = ref<Person[]>([])
 
-    const displayPersons = computed(() => {
-      return isMale.value ? males : females
-    })
+    const getPersons = async () => {
+      isLoading.value = true
+      let endPoint: string
+      if (isMale.value) {
+        endPoint = '/src/static/json/male.json'
+      } else {
+        endPoint = '/src/static/json/females.json'
+      }
+      const res = await axios.get<Person[]>(endPoint)
+      persons.value = res.data
+      isLoading.value = false
+    }
+
+    onMounted(getPersons)
 
     return {
-      displayPersons,
+      persons,
     }
   },
 })
