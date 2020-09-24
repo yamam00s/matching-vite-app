@@ -10,8 +10,6 @@
 import { defineComponent, ref, onMounted } from 'vue'
 import axios from 'axios'
 import { Person } from '../services/models/person'
-import maleList from '../static/json/male.json'
-import femaleList from '../static/json/female.json'
 
 export default defineComponent({
   name: 'Home',
