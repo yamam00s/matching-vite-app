@@ -4,4 +4,5 @@ export type Person = {
   age: number
   from: string
   live: string
+  image: string
 }
