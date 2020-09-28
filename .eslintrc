@@ -23,6 +23,12 @@
       {
         "singleline": 3
       }
+    ],
+    "vue/html-self-closing": ["error", {
+      "html": {
+        "void": "always"
+      }
+      }
     ]
   }
 }
