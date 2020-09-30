@@ -1,5 +1,5 @@
 <template>
-  <img :src="`${imagePathName}/${person.image}`" />
+  <img :src="imagePathName" />
   <p>{{ person.name }}</p>
 </template>
 
@@ -31,12 +31,14 @@ export default defineComponent({
   setup(props: Props) {
     const imagePathName = computed(
       () =>
-        `@/assets/person/${props.isMale ? 'male' : 'female'}/${
+        `/src/assets/person/${props.isMale ? 'male' : 'female'}/${
           props.person.image
         }`
     )
 
-    return imagePathName
+    return {
+      imagePathName,
+    }
   },
 })
 </script>
