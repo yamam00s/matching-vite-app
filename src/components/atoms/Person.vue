@@ -1,6 +1,8 @@
 <template>
-  <img :src="imagePathName" />
-  <p>{{ person.name }}</p>
+  <div class="person">
+    <img class="person-image" :src="imagePathName" />
+    <p class="person-name">{{ person.name }}</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -42,3 +44,14 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.person {
+  margin: 10px;
+
+  .person-image {
+    width: 100%;
+    border-radius: 50px;
+  }
+}
+</style>

@@ -1,8 +1,8 @@
 <template>
   <Suspense>
     <template #default>
-      <ul>
-        <li v-for="person in persons" :key="person.id">
+      <ul class="persons">
+        <li v-for="person in persons" :key="person.id" class="person-item">
           <Person :person="person" :is-male="isMale" />
         </li>
       </ul>
@@ -34,3 +34,13 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.persons {
+  display: flex;
+  flex-wrap: wrap;
+}
+.person-item {
+  width: 25%;
+}
+</style>

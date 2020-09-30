@@ -51,7 +51,7 @@ export default defineComponent({
 }
 
 .menu {
-  width: 30%;
+  min-width: 20%;
   border-right: 1px solid #333;
   padding-top: 30px;
 }
