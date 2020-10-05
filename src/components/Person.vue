@@ -1,7 +1,7 @@
 <template>
   <div class="person">
     <img class="person-image" :src="imagePathName" />
-    <p class="person-name">{{ person.name }}</p>
+    <p class="person-name">{{ person.naame }}</p>
   </div>
 </template>
 

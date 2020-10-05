@@ -15,8 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-// import { Person as PersonType } from '@/services/models/person'
-import Person from '@/components/atoms/Person.vue'
+import Person from '@/components/Person.vue'
 import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
 
 export default defineComponent({
@@ -29,6 +28,7 @@ export default defineComponent({
     const { persons } = usePersonsRepositories(isMale.value)
 
     return {
+      isMale,
       persons,
     }
   },
