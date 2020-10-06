@@ -22,11 +22,12 @@ export default defineComponent({
       },
     },
   },
+  emits: ['emit-text'],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props: Props, context: SetupContext) {
     const inputText = ref<string>('')
     const submitText = () => {
-      context.emit(`'emit-text'`, inputText)
+      context.emit('emit-text', inputText)
     }
 
     return {
