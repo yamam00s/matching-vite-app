@@ -18,7 +18,7 @@ export default defineComponent({
     buttonText: {
       type: String,
       default() {
-        return '検索'
+        return '確定'
       },
     },
   },
@@ -43,6 +43,7 @@ export default defineComponent({
   display: flex;
 
   input {
+    flex: 1;
     border-radius: 5px;
   }
 

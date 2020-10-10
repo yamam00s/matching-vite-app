@@ -1,30 +1,24 @@
 <template>
-  <TextForm button-text="探す" />
-  <Suspense>
-    <template #default>
-      <Persons />
-    </template>
-    <template #fallback>
-      <p>Loading...</p>
-    </template>
-  </Suspense>
+  <ul class="persons">
+    <li v-for="person in persons" :key="person.id" class="person-item">
+      <Person :person="person" :is-male="isMale" />
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import Persons from '@/components/Persons.vue'
-import TextForm from '@/components/TextForm.vue'
+import Person from '@/components/Person.vue'
 import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
 
 export default defineComponent({
   name: 'Home',
   components: {
-    Persons,
-    TextForm,
+    Person,
   },
-  setup() {
+  async setup() {
     const isMale = ref<boolean>(true)
-    const { persons } = usePersonsRepositories(isMale.value)
+    const { persons } = await usePersonsRepositories(isMale.value)
 
     return {
       isMale,
