@@ -1,5 +1,5 @@
 <template>
-  <TextForm button-text="探す" @emit-text="searchName" />
+  <TextForm v-model:text="formText" button-text="探す" @submit="searchName" />
   <Suspense>
     <template #default>
       <Persons :get-persons="getPersons" :persons="persons" />
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Persons from '@/components/Persons.vue'
 import TextForm from '@/components/TextForm.vue'
 import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
@@ -24,15 +24,17 @@ export default defineComponent({
   },
   setup() {
     const { persons, getPersons, filterPersons } = usePersonsRepositories()
+    const formText = ref<string>('')
 
-    const searchName = (text: string) => {
-      console.log(text)
-      filterPersons(text)
+    const searchName = () => {
+      filterPersons(formText.value)
     }
+
     return {
       persons,
       getPersons,
       searchName,
+      formText,
     }
   },
 })

@@ -1,16 +1,16 @@
 <template>
   <div class="text-form">
-    <input v-model="inputText" type="text" />
-    <button type="button" @click="submitText">{{ buttonText }}</button>
+    <input
+      type="text"
+      :value="text"
+      @input="$emit('update:text', $event.target.value)"
+    />
+    <button type="button" @click="$emit('submit')">{{ buttonText }}</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, SetupContext } from 'vue'
-
-type Props = {
-  buttonText: string
-}
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'TextForm',
@@ -21,20 +21,12 @@ export default defineComponent({
         return '確定'
       },
     },
+    text: {
+      type: String,
+      default: '',
+    },
   },
-  emits: ['emit-text'],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setup(props: Props, context: SetupContext) {
-    const inputText = ref<string>('')
-    const submitText = () => {
-      context.emit('emit-text', inputText.value)
-    }
-
-    return {
-      inputText,
-      submitText,
-    }
-  },
+  emits: ['update:text', 'submit'],
 })
 </script>
 
