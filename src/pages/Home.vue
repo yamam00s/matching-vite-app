@@ -25,8 +25,8 @@ export default defineComponent({
   setup() {
     const { persons, getPersons, filterPersons } = usePersonsRepositories()
 
-    const searchName = (text) => {
-      console.log(text.value)
+    const searchName = (text: string) => {
+      console.log(text)
       filterPersons(text)
     }
     return {

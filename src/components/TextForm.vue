@@ -27,7 +27,7 @@ export default defineComponent({
   setup(props: Props, context: SetupContext) {
     const inputText = ref<string>('')
     const submitText = () => {
-      context.emit('emit-text', inputText)
+      context.emit('emit-text', inputText.value)
     }
 
     return {
