@@ -6,12 +6,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 type Props = {
   buttonText: string
   text: string
-  textModifiers: any // 型は何を定義するのか
+  textModifiers: {
+    capitalize: boolean
+  }
 }
 
 export default defineComponent({
@@ -28,7 +30,7 @@ export default defineComponent({
       default: '',
     },
     textModifiers: {
-      type: Function,
+      type: Object as PropType<{ capitalize: boolean }>,
       default: () => ({}),
     },
   },
