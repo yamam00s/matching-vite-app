@@ -7,23 +7,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, PropType } from 'vue'
 import Person from '@/components/Person.vue'
-import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
+import { Person as PersonType } from '@/services/models/person'
+
+type Props = {
+  persons: PersonType[]
+  getPersons: (isMale: boolean) => Promise<void>
+}
 
 export default defineComponent({
   name: 'Home',
   components: {
     Person,
   },
-  async setup() {
+  props: {
+    persons: {
+      type: Array as PropType<PersonType[]>,
+      required: true,
+    },
+    getPersons: {
+      type: Function as PropType<(isMale: boolean) => Promise<void>>,
+      required: true,
+    },
+  },
+  async setup(props: Props) {
     const isMale = ref<boolean>(true)
-    const { persons } = await usePersonsRepositories(isMale.value)
-
-    return {
-      isMale,
-      persons,
-    }
+    await props.getPersons(isMale.value)
   },
 })
 </script>

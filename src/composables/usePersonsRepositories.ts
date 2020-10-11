@@ -1,15 +1,17 @@
-import { Ref, ref, onMounted } from 'vue'
+import { Ref, ref } from 'vue'
 import axios from 'axios'
 import { Person as PersonType } from '@/services/models/person'
 
 type UsePersons = {
   persons: Ref<PersonType[]>
+  getPersons: (isMale: boolean) => Promise<void>
+  filterPersons: (text: string) => void
 }
 
-export const usePersonsRepositories = (isMale: boolean): UsePersons => {
+export const usePersonsRepositories = (): UsePersons => {
   const persons = ref<PersonType[]>([])
 
-  const getPersons = async () => {
+  const getPersons = async (isMale: boolean) => {
     let endPoint: string
     if (isMale) {
       endPoint = '/src/static/json/male.json'
@@ -20,9 +22,16 @@ export const usePersonsRepositories = (isMale: boolean): UsePersons => {
     persons.value = res.data
   }
 
-  onMounted(getPersons)
+  const filterPersons = (text: string) => {
+    persons.value = persons.value.filter((person) => {
+      console.log(person.name)
+      return person.name === text
+    })
+  }
 
   return {
     persons,
+    getPersons,
+    filterPersons,
   }
 }
