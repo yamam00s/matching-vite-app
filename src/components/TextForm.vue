@@ -1,16 +1,18 @@
 <template>
   <div class="text-form">
-    <input
-      type="text"
-      :value="text"
-      @input="$emit('update:text', $event.target.value)"
-    />
+    <input type="text" :value="text" @input="updateText" />
     <button type="button" @click="$emit('submit')">{{ buttonText }}</button>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+
+type Props = {
+  buttonText: string
+  text: string
+  textModifiers: any // 型は何を定義するのか
+}
 
 export default defineComponent({
   name: 'TextForm',
@@ -25,8 +27,27 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    textModifiers: {
+      type: Function,
+      default: () => ({}),
+    },
   },
   emits: ['update:text', 'submit'],
+  setup(props: Props, { emit }) {
+    const updateText = (event: Event) => {
+      if (!(event.target instanceof HTMLInputElement)) {
+        return
+      }
+      let textValue = event.target.value
+      if (props.textModifiers.capitalize) {
+        textValue = textValue.charAt(0).toUpperCase() + textValue.slice(1)
+      }
+      emit('update:text', textValue)
+    }
+    return {
+      updateText,
+    }
+  },
 })
 </script>
 

@@ -1,5 +1,9 @@
 <template>
-  <TextForm v-model:text="formText" button-text="探す" @submit="searchName" />
+  <TextForm
+    v-model:text.capitalize="formText"
+    button-text="探す"
+    @submit="searchName"
+  />
   <Suspense>
     <template #default>
       <Persons :get-persons="getPersons" :persons="persons" />
