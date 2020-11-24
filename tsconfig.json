@@ -22,6 +22,10 @@
       "esnext",
       "dom",
       "dom.iterable",
+    ],
+    "types": [
+      "@types/node",
+      "@nuxt/types"
     ]
   },
   "include": [
