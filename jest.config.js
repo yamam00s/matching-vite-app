@@ -3,8 +3,8 @@ module.exports = {
     '.*\\.(ts)$': '<rootDir>/node_modules/ts-jest',
     '.*\\.(vue)$': 'vue-jest',
   },
-  moduleFileExtensions: ['ts', 'vue'],
+  moduleFileExtensions: ['js', 'ts', 'vue'],
   moduleNameMapper: {
-    '^@/(.+)': '<rootDir>/$1',
+    '^@/(.+)': '<rootDir>/src/$1',
   },
 }
