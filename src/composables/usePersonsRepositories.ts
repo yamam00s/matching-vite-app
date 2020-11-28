@@ -6,7 +6,7 @@ type UsePersons = {
   displayPersons: Ref<PersonType[]>
   fetchPersons: (isMale: boolean) => Promise<void>
   setDisplayPersons: (setPersonsData: PersonType[]) => void
-  getNameFilteredPersons: (text: string) => PersonType[]
+  getNameFilteredPersons: (text: string) => void
 }
 
 export const usePersonsRepositories = (): UsePersons => {
@@ -30,7 +30,7 @@ export const usePersonsRepositories = (): UsePersons => {
   }
 
   const getNameFilteredPersons = (text: string) => {
-    return persons.value.filter((person) => person.name === text)
+    setDisplayPersons(persons.value.filter((person) => person.name === text))
   }
 
   return {
