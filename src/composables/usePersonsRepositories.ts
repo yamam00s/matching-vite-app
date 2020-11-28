@@ -3,14 +3,15 @@ import axios from 'axios'
 import { Person as PersonType } from '@/services/models/person'
 
 type UsePersons = {
-  persons: Ref<PersonType[]>
+  displayPersons: Ref<PersonType[]>
   fetchPersons: (isMale: boolean) => Promise<void>
-  setPersons: (setPersonsData: PersonType[]) => void
-  filterPersons: (text: string) => void
+  setDisplayPersons: (setPersonsData: PersonType[]) => void
+  getNameFilteredPersons: (text: string) => PersonType[]
 }
 
 export const usePersonsRepositories = (): UsePersons => {
   const persons = ref<PersonType[]>([])
+  const displayPersons = ref<PersonType[]>([])
 
   const fetchPersons = async (isMale: boolean) => {
     let endPoint: string
@@ -20,24 +21,22 @@ export const usePersonsRepositories = (): UsePersons => {
       endPoint = '/src/static/json/females.json'
     }
     const res = await axios.get<PersonType[]>(endPoint)
-    setPersons(res.data)
+    persons.value = res.data
+    setDisplayPersons(persons.value)
   }
 
-  const setPersons = (setPersonsData: PersonType[]) => {
-    persons.value = setPersonsData
+  const setDisplayPersons = (setPersonsData: PersonType[]) => {
+    displayPersons.value = setPersonsData
   }
 
-  const filterPersons = (text: string) => {
-    persons.value = persons.value.filter((person) => {
-      console.log(person.name)
-      return person.name === text
-    })
+  const getNameFilteredPersons = (text: string) => {
+    return persons.value.filter((person) => person.name === text)
   }
 
   return {
-    persons,
+    displayPersons,
     fetchPersons,
-    setPersons,
-    filterPersons,
+    setDisplayPersons,
+    getNameFilteredPersons,
   }
 }

@@ -2,11 +2,11 @@
   <TextForm
     v-model:text.capitalize="formText"
     button-text="探す"
-    @submit="searchName"
+    @submit="searchNamePersons"
   />
   <Suspense>
     <template #default>
-      <Persons :fetch-persons="fetchPersons" :persons="persons" />
+      <Persons :fetch-persons="fetchPersons" :persons="displayPersons" />
     </template>
     <template #fallback>
       <p>Loading...</p>
@@ -27,17 +27,22 @@ export default defineComponent({
     TextForm,
   },
   setup() {
-    const { persons, fetchPersons, filterPersons } = usePersonsRepositories()
+    const {
+      displayPersons,
+      setDisplayPersons,
+      fetchPersons,
+      getNameFilteredPersons,
+    } = usePersonsRepositories()
     const formText = ref<string>('')
 
-    const searchName = () => {
-      filterPersons(formText.value)
+    const searchNamePersons = () => {
+      setDisplayPersons(getNameFilteredPersons(formText.value))
     }
 
     return {
-      persons,
+      displayPersons,
       fetchPersons,
-      searchName,
+      searchNamePersons,
       formText,
     }
   },

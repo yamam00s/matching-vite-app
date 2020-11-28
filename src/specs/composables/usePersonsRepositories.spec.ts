@@ -7,10 +7,10 @@ describe('usePersonsRepositories', () => {
   beforeEach(() => {
     mockPersons = mockPersonsJson
   })
-  const { persons, setPersons } = usePersonsRepositories()
+  const { displayPersons, setDisplayPersons } = usePersonsRepositories()
 
-  it('setしたDataと取得したDataが同一である', () => {
-    setPersons(mockPersons)
-    expect(persons.value).toEqual(mockPersons)
+  it('setDisplayPersons displayPersons', () => {
+    setDisplayPersons(mockPersons)
+    expect(displayPersons.value).toEqual(mockPersons)
   })
 })
