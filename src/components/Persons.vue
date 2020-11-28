@@ -13,7 +13,7 @@ import { Person as PersonType } from '@/services/models/person'
 
 type Props = {
   persons: PersonType[]
-  getPersons: (isMale: boolean) => Promise<void>
+  fetchPersons: (isMale: boolean) => Promise<void>
 }
 
 export default defineComponent({
@@ -26,14 +26,14 @@ export default defineComponent({
       type: Array as PropType<PersonType[]>,
       required: true,
     },
-    getPersons: {
+    fetchPersons: {
       type: Function as PropType<(isMale: boolean) => Promise<void>>,
       required: true,
     },
   },
   async setup(props: Props) {
     const isMale = ref<boolean>(true)
-    await props.getPersons(isMale.value)
+    await props.fetchPersons(isMale.value)
   },
 })
 </script>

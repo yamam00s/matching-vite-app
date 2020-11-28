@@ -6,7 +6,7 @@
   />
   <Suspense>
     <template #default>
-      <Persons :get-persons="getPersons" :persons="persons" />
+      <Persons :fetch-persons="fetchPersons" :persons="persons" />
     </template>
     <template #fallback>
       <p>Loading...</p>
@@ -27,7 +27,7 @@ export default defineComponent({
     TextForm,
   },
   setup() {
-    const { persons, getPersons, filterPersons } = usePersonsRepositories()
+    const { persons, fetchPersons, filterPersons } = usePersonsRepositories()
     const formText = ref<string>('')
 
     const searchName = () => {
@@ -36,7 +36,7 @@ export default defineComponent({
 
     return {
       persons,
-      getPersons,
+      fetchPersons,
       searchName,
       formText,
     }

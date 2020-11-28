@@ -4,14 +4,15 @@ import { Person as PersonType } from '@/services/models/person'
 
 type UsePersons = {
   persons: Ref<PersonType[]>
-  getPersons: (isMale: boolean) => Promise<void>
+  fetchPersons: (isMale: boolean) => Promise<void>
+  setPersons: (setPersonsData: PersonType[]) => void
   filterPersons: (text: string) => void
 }
 
 export const usePersonsRepositories = (): UsePersons => {
   const persons = ref<PersonType[]>([])
 
-  const getPersons = async (isMale: boolean) => {
+  const fetchPersons = async (isMale: boolean) => {
     let endPoint: string
     if (isMale) {
       endPoint = '/src/static/json/male.json'
@@ -19,7 +20,11 @@ export const usePersonsRepositories = (): UsePersons => {
       endPoint = '/src/static/json/females.json'
     }
     const res = await axios.get<PersonType[]>(endPoint)
-    persons.value = res.data
+    setPersons(res.data)
+  }
+
+  const setPersons = (setPersonsData: PersonType[]) => {
+    persons.value = setPersonsData
   }
 
   const filterPersons = (text: string) => {
@@ -31,7 +36,8 @@ export const usePersonsRepositories = (): UsePersons => {
 
   return {
     persons,
-    getPersons,
+    fetchPersons,
+    setPersons,
     filterPersons,
   }
 }
