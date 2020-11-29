@@ -4,24 +4,36 @@ import mockPersonsJson from '@/specs/mocks/persons.json'
 
 describe('usePersonsRepositories', () => {
   let mockPersons: PersonType[]
-  beforeEach(() => {
-    mockPersons = mockPersonsJson
-  })
   const {
     displayPersons,
+    setPersons,
     setDisplayPersons,
-    getNameFilteredPersons,
+    nameFilterPersons,
   } = usePersonsRepositories()
+
+  beforeEach(() => {
+    mockPersons = mockPersonsJson
+    setPersons(mockPersons)
+    setDisplayPersons(mockPersons)
+  })
 
   it('setDisplayPersons displayPersonsが更新される', () => {
     setDisplayPersons(mockPersons)
     expect(displayPersons.value).toEqual(mockPersons)
   })
-  it('getNameFilteredPersons 指定したテキストでdisplayPersonsがフィルタリングされる', () => {
-    const name = '田中一郎'
-    getNameFilteredPersons(name)
-    displayPersons.value.forEach((person) => {
-      expect(person.name).toBe(name)
+
+  describe('nameFilterPersons', () => {
+    it('指定した名前でdisplayPersonsがフィルタリングされる', () => {
+      const nameText = '田中一郎'
+      nameFilterPersons(nameText)
+      displayPersons.value.forEach((person) => {
+        expect(person.name).toBe(nameText)
+      })
+    })
+    it('存在しない名前を指定した場合displayPersonsは空になる', () => {
+      const nameText = 'テスト太郎'
+      nameFilterPersons(nameText)
+      expect(displayPersons.value.length).toBe(0)
     })
   })
 })

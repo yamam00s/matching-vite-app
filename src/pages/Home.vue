@@ -29,14 +29,13 @@ export default defineComponent({
   setup() {
     const {
       displayPersons,
-      setDisplayPersons,
       fetchPersons,
-      getNameFilteredPersons,
+      nameFilterPersons,
     } = usePersonsRepositories()
     const formText = ref<string>('')
 
     const searchNamePersons = () => {
-      setDisplayPersons(getNameFilteredPersons(formText.value))
+      nameFilterPersons(formText.value)
     }
 
     return {
