@@ -17,7 +17,7 @@ type Props = {
 }
 
 export default defineComponent({
-  name: 'Home',
+  name: 'Persons',
   components: {
     Person,
   },
