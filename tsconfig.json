@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES2019",
+    "module": "commonjs",
     "strict": true,
     "importHelpers": true,
     "moduleResolution": "node",
@@ -19,7 +19,7 @@
       ]
     },
     "lib": [
-      "esnext",
+      "ES2019",
       "dom",
       "dom.iterable",
     ],
