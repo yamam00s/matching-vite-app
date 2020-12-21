@@ -7,5 +7,7 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.+)': '<rootDir>/src/$1',
   },
-  testMatch: ['<rootDir>/**/specs/*.(spec|test).ts?(x)'],
+  testMatch: ['<rootDir>/**/specs/**/*.(spec|test).ts?(x)'],
+  // collectCoverage: true,
+  // collectCoverageFrom: ['**/*.{ts,vue}', '!**/node_modules/**'],
 }
