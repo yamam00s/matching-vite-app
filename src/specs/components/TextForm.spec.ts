@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import TextForm from '@/components/TextForm.vue'
 
 describe('TextForm', () => {
@@ -7,7 +7,7 @@ describe('TextForm', () => {
     text: 'text',
   }
   const inputText = '入力テキスト'
-  const wrapper = mount(TextForm, { propsData: { ...props } })
+  const wrapper = shallowMount(TextForm, { propsData: { ...props } })
 
   describe('propsの確認', () => {
     it('ボタンテキストが正しく表示されている', () => {

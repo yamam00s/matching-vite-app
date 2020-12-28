@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import Person from '@/components/Person.vue'
 import mockPersonsJson from '@/specs/mocks/persons.json'
 
@@ -7,7 +7,7 @@ describe('Person', () => {
     person: mockPersonsJson[0],
     isMale: true,
   }
-  const wrapper = mount(Person, { propsData: { ...props } })
+  const wrapper = shallowMount(Person, { propsData: { ...props } })
 
   describe('propsの確認', () => {
     it('名前が正しく表示されている', () => {
