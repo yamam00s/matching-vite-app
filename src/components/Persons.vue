@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from 'vue'
+import { defineComponent, ref, onMounted, PropType } from 'vue'
 import Person from '@/components/Person.vue'
 import { Person as PersonType } from '@/services/models/person'
 
@@ -31,9 +31,11 @@ export default defineComponent({
       required: true,
     },
   },
-  async setup(props: Props) {
+  setup(props: Props) {
     const isMale = ref<boolean>(true)
-    await props.fetchPersons(isMale.value)
+    onMounted(async () => {
+      await props.fetchPersons(isMale.value)
+    })
   },
 })
 </script>
