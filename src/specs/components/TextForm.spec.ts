@@ -21,7 +21,6 @@ describe('TextForm', () => {
     })
     it('update:text（v-model）が正しく発火されている', async () => {
       await wrapper.find('input').setValue(inputText)
-      console.log(wrapper.emitted()['update:text'])
       expect(wrapper.emitted()['update:text'][0]).toEqual(['入力テキスト'])
     })
   })
