@@ -4,14 +4,14 @@
     button-text="探す"
     @submit="searchNamePersons"
   />
-  <Suspense>
+  <!-- <Suspense>
     <template #default>
       <Persons :fetch-persons="fetchPersons" :persons="displayPersons" />
     </template>
     <template #fallback>
       <p>Loading...</p>
     </template>
-  </Suspense>
+  </Suspense> -->
 </template>
 
 <script lang="ts">
@@ -48,12 +48,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.persons {
-  display: flex;
-  flex-wrap: wrap;
-}
-.person-item {
-  width: 25%;
-}
-</style>
+<style lang="scss" scoped></style>

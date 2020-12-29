@@ -13,7 +13,7 @@ jest.mock('axios', () => ({
     }),
 }))
 
-describe('Person', () => {
+describe('Persons', () => {
   const { fetchPersons } = usePersonsRepositories()
   const props = {
     persons: mockPersonsJson,
