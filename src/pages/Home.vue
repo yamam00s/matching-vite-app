@@ -12,12 +12,20 @@
       <p>Loading...</p>
     </template>
   </Suspense>
+  <teleport to="#app">
+    <Modal
+      v-if="isShowModal"
+      :persons="displayPersons[0]"
+      @close="isShowModal = false"
+    />
+  </teleport>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import Persons from '@/components/Persons.vue'
 import TextForm from '@/components/TextForm.vue'
+import Modal from '@/components/Modal.vue'
 import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
 
 export default defineComponent({
@@ -25,6 +33,7 @@ export default defineComponent({
   components: {
     Persons,
     TextForm,
+    Modal,
   },
   setup() {
     const {
@@ -33,6 +42,7 @@ export default defineComponent({
       nameFilterPersons,
     } = usePersonsRepositories()
     const formText = ref<string>('')
+    const isShowModal = ref<boolean>(true)
 
     const searchNamePersons = () => {
       nameFilterPersons(formText.value)
@@ -43,6 +53,7 @@ export default defineComponent({
       fetchPersons,
       searchNamePersons,
       formText,
+      isShowModal,
     }
   },
 })
