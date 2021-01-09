@@ -1,7 +1,11 @@
 <template>
   <ul class="persons">
-    <li v-for="person in persons" :key="person.id" class="person-item">
-      <Person :person="person" :is-male="isMale" />
+    <li v-for="(person, index) in persons" :key="person.id" class="person-item">
+      <Person
+        :person="person"
+        :is-male="isMale"
+        @click="$emit('selectPerson', index)"
+      />
     </li>
   </ul>
 </template>
@@ -31,6 +35,7 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ['selectPerson'],
   setup(props: Props) {
     const isMale = ref<boolean>(true)
     onMounted(async () => {

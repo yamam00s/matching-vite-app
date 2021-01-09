@@ -6,27 +6,31 @@
   />
   <Suspense>
     <template #default>
-      <Persons :fetch-persons="fetchPersons" :persons="displayPersons" />
+      <Persons
+        :persons="displayPersons"
+        :fetch-persons="fetchPersons"
+        @select-person="setSelectPerson"
+      />
     </template>
     <template #fallback>
       <p>Loading...</p>
     </template>
   </Suspense>
   <teleport to="#app">
-    <Modal
-      v-if="isShowModal"
-      :persons="displayPersons[0]"
-      @close="isShowModal = false"
-    />
+    <Modal v-if="isShowModal" @close="isShowModal = false">
+      <Person :person="displayPersons[selectIndex]" :is-male="true" />
+    </Modal>
   </teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 import Persons from '@/components/Persons.vue'
+import Person from '@/components/Person.vue'
 import TextForm from '@/components/TextForm.vue'
 import Modal from '@/components/Modal.vue'
 import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
+import { Person as PersonType, blankPerson } from '@/services/models/person'
 
 export default defineComponent({
   name: 'Home',
@@ -34,6 +38,7 @@ export default defineComponent({
     Persons,
     TextForm,
     Modal,
+    Person,
   },
   setup() {
     const {
@@ -43,9 +48,14 @@ export default defineComponent({
     } = usePersonsRepositories()
     const formText = ref<string>('')
     const isShowModal = ref<boolean>(true)
+    const selectIndex = ref<number>(0)
 
     const searchNamePersons = () => {
       nameFilterPersons(formText.value)
+    }
+
+    const setSelectPersonIndex = (selectIndexValue: number) => {
+      selectIndex.value = selectIndexValue
     }
 
     return {
@@ -54,6 +64,8 @@ export default defineComponent({
       searchNamePersons,
       formText,
       isShowModal,
+      selectIndex,
+      setSelectPersonIndex,
     }
   },
 })

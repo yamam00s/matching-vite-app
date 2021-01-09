@@ -6,3 +6,12 @@ export type Person = {
   live: string
   image: string
 }
+
+export const blankPerson: Person = {
+  id: 0,
+  name: '',
+  age: 0,
+  from: '',
+  live: '',
+  image: '',
+}
