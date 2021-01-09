@@ -18,19 +18,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { Person } from '@/services/models/person'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'Modal',
-  props: {
-    person: {
-      type: Object as PropType<Person>,
-      default() {
-        return {}
-      },
-    },
-  },
   emits: ['close'],
 })
 </script>
@@ -47,7 +38,6 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.3s ease;
 }
 
 .modal-container {
@@ -57,23 +47,9 @@ export default defineComponent({
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
 }
 
 .modal-body {
   margin: 20px 0;
-}
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  transform: scale(1.1);
 }
 </style>
