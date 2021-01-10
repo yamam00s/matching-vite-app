@@ -18,7 +18,9 @@
   </Suspense>
   <teleport to="#app">
     <Modal v-if="isShowModal" @close="isShowModal = false">
-      <Person :person="displayPersons[selectIndex]" :is-male="true" />
+      <template #body>
+        <Person :person="displayPersons[selectIndex]" :is-male="true" />
+      </template>
     </Modal>
   </teleport>
 </template>
