@@ -10,7 +10,7 @@ type UsePersons = {
   nameFilterPersons: (text: string) => void
 }
 
-export const usePersonsRepositories = (): UsePersons => {
+export const usePersons = (): UsePersons => {
   const persons = ref<PersonType[]>([])
   const displayPersons = ref<PersonType[]>([])
 

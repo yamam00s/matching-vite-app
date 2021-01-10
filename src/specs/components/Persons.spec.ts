@@ -4,7 +4,7 @@ import axios from 'axios'
 import Persons from '@/components/Persons.vue'
 import Person from '@/components/Person.vue'
 import mockPersonsJson from '@/specs/mocks/persons.json'
-import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
+import { usePersons } from '@/composables/usePersons'
 
 jest.mock('axios', () => ({
   get: () =>
@@ -14,7 +14,7 @@ jest.mock('axios', () => ({
 }))
 
 describe('Persons', () => {
-  const { fetchPersons } = usePersonsRepositories()
+  const { fetchPersons } = usePersons()
   const props = {
     persons: mockPersonsJson,
     fetchPersons: fetchPersons,

@@ -1,15 +1,15 @@
-import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
+import { usePersons } from '@/composables/usePersons'
 import { Person as PersonType } from '@/services/models/person'
 import mockPersonsJson from '@/specs/mocks/persons.json'
 
-describe('usePersonsRepositories', () => {
+describe('usePersons', () => {
   let mockPersons: PersonType[]
   const {
     displayPersons,
     setPersons,
     setDisplayPersons,
     nameFilterPersons,
-  } = usePersonsRepositories()
+  } = usePersons()
 
   beforeEach(() => {
     mockPersons = mockPersonsJson

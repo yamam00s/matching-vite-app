@@ -20,19 +20,20 @@
   <teleport to="#app">
     <Modal v-if="isShowModal" @close="isShowModal = false">
       <template #body>
-        <Person :person="displayPersons[selectIndex]" :is-male="isMale" />
+        <Person :person="selectedPerson" :is-male="isMale" />
+        <button @click="addFavorite">イイネ</button>
       </template>
     </Modal>
   </teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import Persons from '@/components/Persons.vue'
 import Person from '@/components/Person.vue'
 import TextForm from '@/components/TextForm.vue'
 import Modal from '@/components/Modal.vue'
-import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
+import { usePersons } from '@/composables/usePersons'
 // import { Person as PersonType, blankPerson } from '@/services/models/person'
 
 export default defineComponent({
@@ -48,7 +49,7 @@ export default defineComponent({
       displayPersons,
       fetchPersons,
       nameFilterPersons,
-    } = usePersonsRepositories()
+    } = usePersons()
     const formText = ref<string>('')
     const isMale = ref<boolean>(true)
     const isShowModal = ref<boolean>(false)
@@ -58,9 +59,16 @@ export default defineComponent({
       nameFilterPersons(formText.value)
     }
 
+    // modal
     const selectPerson = (selectIndexValue: number) => {
       selectIndex.value = selectIndexValue
       isShowModal.value = true
+    }
+    const selectedPerson = computed(() => {
+      return displayPersons.value[selectIndex.value]
+    })
+    const addFavorite = () => {
+      isShowModal.value = false
     }
 
     return {
@@ -72,6 +80,8 @@ export default defineComponent({
       isShowModal,
       selectIndex,
       selectPerson,
+      selectedPerson,
+      addFavorite,
     }
   },
 })
