@@ -8,8 +8,9 @@
     <template #default>
       <Persons
         :persons="displayPersons"
+        :is-male="isMale"
         :fetch-persons="fetchPersons"
-        @select-person="setSelectPerson"
+        @select-person="selectPerson"
       />
     </template>
     <template #fallback>
@@ -19,20 +20,20 @@
   <teleport to="#app">
     <Modal v-if="isShowModal" @close="isShowModal = false">
       <template #body>
-        <Person :person="displayPersons[selectIndex]" :is-male="true" />
+        <Person :person="displayPersons[selectIndex]" :is-male="isMale" />
       </template>
     </Modal>
   </teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Persons from '@/components/Persons.vue'
 import Person from '@/components/Person.vue'
 import TextForm from '@/components/TextForm.vue'
 import Modal from '@/components/Modal.vue'
 import { usePersonsRepositories } from '@/composables/usePersonsRepositories'
-import { Person as PersonType, blankPerson } from '@/services/models/person'
+// import { Person as PersonType, blankPerson } from '@/services/models/person'
 
 export default defineComponent({
   name: 'Home',
@@ -49,15 +50,17 @@ export default defineComponent({
       nameFilterPersons,
     } = usePersonsRepositories()
     const formText = ref<string>('')
-    const isShowModal = ref<boolean>(true)
+    const isMale = ref<boolean>(true)
+    const isShowModal = ref<boolean>(false)
     const selectIndex = ref<number>(0)
 
     const searchNamePersons = () => {
       nameFilterPersons(formText.value)
     }
 
-    const setSelectPersonIndex = (selectIndexValue: number) => {
+    const selectPerson = (selectIndexValue: number) => {
       selectIndex.value = selectIndexValue
+      isShowModal.value = true
     }
 
     return {
@@ -65,9 +68,10 @@ export default defineComponent({
       fetchPersons,
       searchNamePersons,
       formText,
+      isMale,
       isShowModal,
       selectIndex,
-      setSelectPersonIndex,
+      selectPerson,
     }
   },
 })

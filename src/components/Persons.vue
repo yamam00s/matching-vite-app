@@ -17,6 +17,7 @@ import { Person as PersonType } from '@/services/models/person'
 
 type Props = {
   persons: PersonType[]
+  isMale: boolean
   fetchPersons: (isMale: boolean) => Promise<void>
 }
 
@@ -30,6 +31,10 @@ export default defineComponent({
       type: Array as PropType<PersonType[]>,
       required: true,
     },
+    isMale: {
+      type: Boolean,
+      required: true,
+    },
     fetchPersons: {
       type: Function as PropType<(isMale: boolean) => Promise<void>>,
       required: true,
@@ -37,9 +42,8 @@ export default defineComponent({
   },
   emits: ['selectPerson'],
   setup(props: Props) {
-    const isMale = ref<boolean>(true)
     onMounted(async () => {
-      await props.fetchPersons(isMale.value)
+      await props.fetchPersons(props.isMale)
     })
   },
 })
