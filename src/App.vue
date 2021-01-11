@@ -15,9 +15,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { provideFavoritesStore } from '@/composables/useFavorites'
 
 export default defineComponent({
   name: 'App',
+  setup() {
+    provideFavoritesStore()
+  },
 })
 </script>
 

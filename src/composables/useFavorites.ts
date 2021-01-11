@@ -1,4 +1,4 @@
-import { Ref, ref } from 'vue'
+import { ref, Ref, provide, inject } from 'vue'
 import { Person as PersonType } from '@/services/models/person'
 
 type UseFavorites = {
@@ -16,4 +16,14 @@ export const useFavorites = (): UseFavorites => {
     favorites,
     addFavorites,
   }
+}
+
+const key = Symbol('favorites')
+
+export const provideFavoritesStore = (): void => {
+  provide(key, useFavorites())
+}
+
+export const useFavoritesStore = (): UseFavorites => {
+  return inject<UseFavorites>(key) as UseFavorites
 }
