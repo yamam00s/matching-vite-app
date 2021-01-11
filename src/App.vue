@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <div class="container">
-      <div class="menu">
-        <p>メニュー</p>
-      </div>
+      <ul class="menu">
+        <li><p>メニュー</p></li>
+        <li><router-link to="/">探す</router-link></li>
+        <li><router-link to="/favorites">いいねした人</router-link></li>
+      </ul>
       <div class="contens">
         <router-view />
       </div>
@@ -50,5 +52,15 @@ export default defineComponent({
   min-width: 20%;
   border-right: 1px solid #333;
   padding-top: 30px;
+
+  p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  li {
+    margin-bottom: 20px;
+  }
 }
 </style>
