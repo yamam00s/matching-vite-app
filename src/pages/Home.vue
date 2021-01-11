@@ -34,7 +34,7 @@ import Person from '@/components/Person.vue'
 import TextForm from '@/components/TextForm.vue'
 import Modal from '@/components/Modal.vue'
 import { usePersons } from '@/composables/usePersons'
-import { useFavorites } from '@/composables/useFavorites'
+import { useFavoritesStore } from '@/composables/useFavorites'
 // import { Person as PersonType, blankPerson } from '@/services/models/person'
 
 export default defineComponent({
@@ -47,7 +47,7 @@ export default defineComponent({
   },
   setup() {
     const { displayPersons, fetchPersons, nameFilterPersons } = usePersons()
-    const { addFavorites } = useFavorites()
+    const { favorites, addFavorites } = useFavoritesStore()
     const formText = ref<string>('')
     const isMale = ref<boolean>(true)
     const isShowModal = ref<boolean>(false)
@@ -70,6 +70,7 @@ export default defineComponent({
       isShowModal.value = false
     }
 
+    console.log(favorites)
     return {
       displayPersons,
       fetchPersons,
